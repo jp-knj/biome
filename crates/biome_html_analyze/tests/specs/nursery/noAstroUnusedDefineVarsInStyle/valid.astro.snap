@@ -1,0 +1,33 @@
+---
+source: crates/biome_html_analyze/tests/spec_tests.rs
+expression: valid.astro
+---
+# Input
+```astro
+<!-- should not generate diagnostics -->
+<style define:vars={{ foreground, background }}>
+    p {
+        color: var(--foreground);
+        background: var(--background);
+    }
+</style>
+
+<style define:vars={variables}>
+    p { color: black; }
+</style>
+
+<style define:vars={{ renamed: value, [dynamic]: value, ...rest }}>
+    p { color: black; }
+</style>
+
+<script define:vars={{ scriptOnly }}>
+    console.log(scriptOnly);
+</script>
+
+<style lang="scss" define:vars={{ ignoredScss }}></style>
+
+<style define:vars={{ color }}>
+    p { color: var(--\63 olor); }
+</style>
+
+```

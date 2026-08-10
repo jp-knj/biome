@@ -1,0 +1,138 @@
+---
+source: crates/biome_html_analyze/tests/spec_tests.rs
+expression: invalid.astro
+---
+# Input
+```astro
+<!-- should generate diagnostics -->
+<style define:vars={{ used, unused }}>
+    p { color: var(--used); }
+</style>
+
+<style define:vars={{ emptyStyle }}></style>
+
+<style define:vars={{ firstOnly }}>
+    p { color: black; }
+</style>
+
+<style define:vars={{ secondUsed }}>
+    p {
+        color: var(--firstOnly);
+        background: var(--secondUsed);
+    }
+</style>
+
+<style define:vars={{ color }}>
+    p { color: var(--color-primary); }
+</style>
+
+<style define:vars={{ color }}>
+    p { color: var(--theme--color); }
+</style>
+
+```
+
+# Diagnostics
+```
+invalid.astro:2:29 lint/nursery/noAstroUnusedDefineVarsInStyle ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i The unused variable is not used in this style block.
+  
+    1 │ <!-- should generate diagnostics -->
+  > 2 │ <style define:vars={{ used, unused }}>
+      │                             ^^^^^^
+    3 │     p { color: var(--used); }
+    4 │ </style>
+  
+  i Unused define:vars properties add an inline custom property that has no effect on the style block.
+  
+  i Reference the matching CSS custom property or remove the property.
+  
+  i This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit https://biomejs.dev/linter/#nursery for more information.
+  
+
+```
+
+```
+invalid.astro:6:23 lint/nursery/noAstroUnusedDefineVarsInStyle ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i The emptyStyle variable is not used in this style block.
+  
+    4 │ </style>
+    5 │ 
+  > 6 │ <style define:vars={{ emptyStyle }}></style>
+      │                       ^^^^^^^^^^
+    7 │ 
+    8 │ <style define:vars={{ firstOnly }}>
+  
+  i Unused define:vars properties add an inline custom property that has no effect on the style block.
+  
+  i Reference the matching CSS custom property or remove the property.
+  
+  i This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit https://biomejs.dev/linter/#nursery for more information.
+  
+
+```
+
+```
+invalid.astro:8:23 lint/nursery/noAstroUnusedDefineVarsInStyle ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i The firstOnly variable is not used in this style block.
+  
+     6 │ <style define:vars={{ emptyStyle }}></style>
+     7 │ 
+   > 8 │ <style define:vars={{ firstOnly }}>
+       │                       ^^^^^^^^^
+     9 │     p { color: black; }
+    10 │ </style>
+  
+  i Unused define:vars properties add an inline custom property that has no effect on the style block.
+  
+  i Reference the matching CSS custom property or remove the property.
+  
+  i This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit https://biomejs.dev/linter/#nursery for more information.
+  
+
+```
+
+```
+invalid.astro:19:23 lint/nursery/noAstroUnusedDefineVarsInStyle ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i The color variable is not used in this style block.
+  
+    17 │ </style>
+    18 │ 
+  > 19 │ <style define:vars={{ color }}>
+       │                       ^^^^^
+    20 │     p { color: var(--color-primary); }
+    21 │ </style>
+  
+  i Unused define:vars properties add an inline custom property that has no effect on the style block.
+  
+  i Reference the matching CSS custom property or remove the property.
+  
+  i This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit https://biomejs.dev/linter/#nursery for more information.
+  
+
+```
+
+```
+invalid.astro:23:23 lint/nursery/noAstroUnusedDefineVarsInStyle ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i The color variable is not used in this style block.
+  
+    21 │ </style>
+    22 │ 
+  > 23 │ <style define:vars={{ color }}>
+       │                       ^^^^^
+    24 │     p { color: var(--theme--color); }
+    25 │ </style>
+  
+  i Unused define:vars properties add an inline custom property that has no effect on the style block.
+  
+  i Reference the matching CSS custom property or remove the property.
+  
+  i This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit https://biomejs.dev/linter/#nursery for more information.
+  
+
+```

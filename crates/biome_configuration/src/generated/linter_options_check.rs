@@ -59,6 +59,7 @@ pub fn config_side_rule_options_types() -> Vec<(&'static str, &'static str, Type
         "noAssignInExpressions",
         TypeId::of::<biome_rule_options::no_assign_in_expressions::NoAssignInExpressionsOptions>(),
     ));
+    result.push(("nursery", "noAstroUnusedDefineVarsInStyle", TypeId::of::<biome_rule_options::no_astro_unused_define_vars_in_style::NoAstroUnusedDefineVarsInStyleOptions>()));
     result.push((
         "suspicious",
         "noAsyncPromiseExecutor",
@@ -1634,6 +1635,7 @@ pub fn config_side_rule_options_types() -> Vec<(&'static str, &'static str, Type
         "useAsConstAssertion",
         TypeId::of::<biome_rule_options::use_as_const_assertion::UseAsConstAssertionOptions>(),
     ));
+    result.push(("nursery", "useAstroClientOnlyDirectiveValue", TypeId::of::<biome_rule_options::use_astro_client_only_directive_value::UseAstroClientOnlyDirectiveValueOptions>()));
     result.push((
         "style",
         "useAtIndex",
