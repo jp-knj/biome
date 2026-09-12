@@ -3,6 +3,12 @@
 use crate::analyzer::DomainSelector;
 use biome_analyze::{Rule, RuleFilter};
 use std::sync::LazyLock;
+static ASTRO_FILTERS: LazyLock<Vec<RuleFilter<'static>>> = LazyLock::new(|| {
+    vec![RuleFilter::Rule(
+        "nursery",
+        "noAstroPrerenderExportOutsidePages",
+    )]
+});
 static DRIZZLE_FILTERS: LazyLock<Vec<RuleFilter<'static>>> = LazyLock::new(|| {
     vec![
         RuleFilter::Rule("nursery", "noDrizzleDeleteWithoutWhere"),
@@ -176,6 +182,7 @@ static VUE_FILTERS: LazyLock<Vec<RuleFilter<'static>>> = LazyLock::new(|| {
 impl DomainSelector {
     pub fn as_rule_filters(&self) -> Vec<RuleFilter<'static>> {
         match self.0 {
+            "astro" => ASTRO_FILTERS.clone(),
             "drizzle" => DRIZZLE_FILTERS.clone(),
             "next" => NEXT_FILTERS.clone(),
             "playwright" => PLAYWRIGHT_FILTERS.clone(),
@@ -198,6 +205,7 @@ impl DomainSelector {
         R: Rule,
     {
         match self.0 {
+            "astro" => ASTRO_FILTERS.iter().any(|filter| filter.match_rule::<R>()),
             "drizzle" => DRIZZLE_FILTERS
                 .iter()
                 .any(|filter| filter.match_rule::<R>()),

@@ -59,6 +59,7 @@ pub fn config_side_rule_options_types() -> Vec<(&'static str, &'static str, Type
         "noAssignInExpressions",
         TypeId::of::<biome_rule_options::no_assign_in_expressions::NoAssignInExpressionsOptions>(),
     ));
+    result.push(("nursery", "noAstroPrerenderExportOutsidePages", TypeId::of::<biome_rule_options::no_astro_prerender_export_outside_pages::NoAstroPrerenderExportOutsidePagesOptions>()));
     result.push((
         "suspicious",
         "noAsyncPromiseExecutor",
